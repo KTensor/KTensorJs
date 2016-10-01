@@ -2,9 +2,12 @@
   "name": "ktensor",
   "version": "0.1.0",
   "description": "neural networks for node",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-dev": "webpack --watch -d --progress --colors",
+    "build": "webpack -p --optimize-dedupe --progress --colors",
+    "dev": "concurrently -kr 'npm run build-dev' 'npm run test'"
   },
   "repository": {
     "type": "git",
@@ -15,5 +18,20 @@
   "bugs": {
     "url": "https://github.com/KTensor/KTensorJs/issues"
   },
-  "homepage": "https://github.com/KTensor/KTensorJs#readme"
+  "homepage": "https://github.com/KTensor/KTensorJs#readme",
+  "devDependencies": {
+    "babel-core": "^6.17.0",
+    "babel-eslint": "^7.0.0",
+    "babel-loader": "^6.2.5",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-latest": "^6.16.0",
+    "chai": "^3.5.0",
+    "concurrently": "^3.0.0",
+    "eslint": "^3.7.0",
+    "json-loader": "^0.5.4",
+    "mocha": "^3.1.0",
+    "nodemon": "^1.10.2",
+    "webpack": "^1.13.2",
+    "webpack-node-externals": "^1.4.3"
+  }
 }
