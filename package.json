@@ -4,10 +4,10 @@
   "description": "neural networks for node",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build-dev": "webpack --watch -d --progress --colors",
-    "build": "webpack -p --optimize-dedupe --progress --colors",
-    "dev": "concurrently -kr 'npm run build-dev' 'npm run test'"
+    "test": "mocha -w lib -w tests -u bdd -c test/index.js",
+    "dev": "concurrently -kr 'npm run build-dev' 'npm run test'",
+    "build": "webpack -p --optimize-dedupe --progress --colors"
   },
   "repository": {
     "type": "git",
