@@ -81,12 +81,9 @@ class Tensor {
     if(this._dim.length < 2){
       return this._values;
     } else {
-      const dimReverse = _(this._dim).value().reverse();
-      const j = _.chunk(this._value, dimReverse.shift());
-      dimReverse.forEach((val, index)=>{
-        
-      });
-      return this._value;
+      return _.tail(this._dim).reduce((total, val)=>{
+        return _.chunk(total, val);
+      }, this._value);
     }
   }
 }

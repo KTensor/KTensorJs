@@ -15,6 +15,12 @@ describe('K.t', ()=>{
         expect(tensor.dimension).to.equal(3);
       });
     });
+    describe('#value', ()=>{
+      it('should return the tensor as a multidimensional array', ()=>{
+        const tensor = new K.t.Tensor(null, null, [[[1, 2] , [3, 4]], [[5, 6], [7, 8]]]);
+        expect(tensor.value).to.eql([[[1, 2] , [3, 4]], [[5, 6], [7, 8]]]);
+      });
+    });
     describe('#calcDim(values)', ()=>{
       it('should calculate dimension vector of multidimensional array', ()=>{
         const tensor = new K.t.Tensor([1]);
