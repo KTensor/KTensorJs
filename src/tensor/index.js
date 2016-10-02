@@ -1,6 +1,15 @@
 import _ from 'lodash';
 import {devMode} from 'utility';
 
+/**
+ * _dim: dimension vector
+ * _value: flattened array of values
+ * size: _dim
+ * dimension: _dim.length
+ * value: shaped nested array of values
+ * calcIndex(vector): transforms vector index into flattened index
+ * value(vector): get value in tensor at vector
+ */
 class Tensor {
   constructor(dimensions, fill=0){
     this._dim = dimensions;
@@ -45,9 +54,8 @@ class Tensor {
     return this._value[this.calcIndex(vector)];
   }
 
-  setValue(vector, value){
-    assertVector(vector);
-    this._value[this.calcIndex(vector)] = value;
+  get value(){
+    return this._value;
   }
 }
 
