@@ -1,13 +1,10 @@
-class Tensor {
-  constructor(){
-
-  }
-}
+import assert from 'assert';
+import {Tensor} from 'tensor';
 
 class Node {
-  constructor(op, ...parent){
+  constructor(op, parameters){
     this._op = op;
-    this._parent = parent;
+    this._parameters = parameters;
     this._val = null;
   }
 
@@ -35,7 +32,7 @@ class Constant {
 }
 
 const t = {
-  Variable, State, Constant
+  Tensor, Variable, State, Constant
 };
 
 const dot = (matrix_1, matrix_2)=>{
