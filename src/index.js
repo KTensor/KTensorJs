@@ -1,4 +1,4 @@
-import {Tensor} from 'tensor';
+import t from 'tensor';
 
 class Node {
   constructor(op, parameters){
@@ -12,28 +12,6 @@ class Node {
   }
 }
 
-class Variable {
-  constructor(){
-
-  }
-}
-
-class State {
-  constructor(){
-
-  }
-}
-
-class Constant {
-  constructor(){
-
-  }
-}
-
-const t = {
-  Tensor, Variable, State, Constant
-};
-
 const dot = (matrix_1, matrix_2)=>{
   return matrix_1;
 };
@@ -46,6 +24,11 @@ const run = (node, variables)=>{
 
 };
 
+const K = {
+  t, op, run
+};
+
 export {
+  K as default,
   t, op, run
 };
