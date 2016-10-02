@@ -1,6 +1,17 @@
 const K = require('../lib');
 const expect = require('chai').expect;
 
+describe('K.c', ()=>{
+  describe('Context', ()=>{
+    describe('#setValue', ()=>{
+
+    });
+    describe('#getValue', ()=>{
+
+    });
+  });
+});
+
 describe('K.t', ()=>{
   describe('Tensor', ()=>{
     describe('#type', ()=>{
@@ -105,8 +116,8 @@ describe('K.n', ()=>{
     describe('#run(state, context)', ()=>{
       it('should return the variable as a tensor', ()=>{
         const variable = new K.n.Variable([0, 3]);
-        const context = {};
-        context[variable] = [[1, 2, 3], [4, 5, 6]];
+        const context = new K.c.Context();
+        context.setValue(variable, [[1, 2, 3], [4, 5, 6]]);
         expect(variable.run(null, context).value).to.eql([[1, 2, 3], [4, 5, 6]]);
       });
     });
