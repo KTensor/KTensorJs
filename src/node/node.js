@@ -1,15 +1,28 @@
 class Node {
-  constructor(op, parameters){
+  constructor(op_name, op, parameters){
+    this._op_name = op_name;
     this._op = op;
     this._parameters = parameters;
-    this._val = null;
+    this._output = null;
   }
 
   get type(){
     return 'node';
   }
 
-  run(){
+  get nodeType(){
+    return 'operation';
+  }
+
+  get opName(){
+    return this._op_name;
+  }
+
+  get output(){
+    return this._output;
+  }
+
+  run(state, context){
 
   }
 }

@@ -1,14 +1,5 @@
 import {Node} from './node';
-
-class Variable {
-  constructor(){
-
-  }
-
-  get type(){
-    return 'variable';
-  }
-}
+import {Variable} from './variable';
 
 class State {
   constructor(){
@@ -23,10 +14,10 @@ class Constant {
 }
 
 const n = {
-  Node
+  Node, Variable
 };
 
 export {
   n as default,
-  Node
+  Node, Variable
 };

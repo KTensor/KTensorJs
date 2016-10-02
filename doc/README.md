@@ -1,12 +1,12 @@
 # Documentation
 
-## Tensor
+## K.t.Tensor
 
 ##### constructor
 
 ```js
-new Tensor(dimensions [, fill]);
-new Tensor(null, null, *multidimensional_array*);
+new K.t.Tensor(dimensions [, fill]);
+new K.t.Tensor(null, null, *multidimensional_array*);
 ```
 
 ### properties
