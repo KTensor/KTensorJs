@@ -11,6 +11,7 @@ import {devMode} from 'utility';
  * calcDim: calculates dimension vector of multidimensional array
  * calcIndex(vector): transforms vector index into flattened index
  * getValue(vector): get value in tensor at vector
+ * setValue(vector, value): set value in tensor at vector
  */
 class Tensor {
   constructor(dimensions, fill=0, values){
@@ -71,8 +72,22 @@ class Tensor {
     return this._value[this.calcIndex(vector)];
   }
 
+  setValue(vector, value){
+    this.assertVector(vector);
+    this._value[this.calcIndex(vector)] = value;
+  }
+
   get value(){
-    return this._value;
+    if(this._dim.length < 2){
+      return this._values;
+    } else {
+      const dimReverse = _(this._dim).value().reverse();
+      const j = _.chunk(this._value, dimReverse.shift());
+      dimReverse.forEach((val, index)=>{
+        
+      });
+      return this._value;
+    }
   }
 }
 
