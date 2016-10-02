@@ -1,16 +1,5 @@
 import t from 'tensor';
-
-class Node {
-  constructor(op, parameters){
-    this._op = op;
-    this._parameters = parameters;
-    this._val = null;
-  }
-
-  run(){
-
-  }
-}
+import n from 'node';
 
 const dot = (matrix_1, matrix_2)=>{
   return matrix_1;
@@ -25,10 +14,10 @@ const run = (node, variables)=>{
 };
 
 const K = {
-  t, op, run
+  t, n
 };
 
 export {
   K as default,
-  t, op, run
+  t, n
 };

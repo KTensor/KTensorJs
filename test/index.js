@@ -54,11 +54,11 @@ describe('K.t', ()=>{
     })
   });
 
-  describe('Variable', ()=>{
+  describe('Node', ()=>{
     describe('#type', ()=>{
       it('should return the type of the object', ()=>{
-        const variable = new K.t.Variable('var1', [1]);
-        expect(variable.type).to.equal('variable');
+        const node = new K.n.Node();
+        expect(node.type).to.equal('node');
       });
     })
   });
