@@ -5,7 +5,7 @@ const conditional = (condition, func)=>{
 };
 
 const devMode = (func)=>{
-  conditional(process.env.NODE_ENV === 'production', func);
+  conditional(process.env.NODE_ENV !== 'production', func);
 };
 
 export {

@@ -1,3 +1,4 @@
+import assert from 'assert';
 import _ from 'lodash';
 import {devMode} from 'utility';
 
@@ -7,16 +8,22 @@ import {devMode} from 'utility';
  * size: _dim
  * dimension: _dim.length
  * value: shaped nested array of values
+ * calcDim: calculates dimension vector of multidimensional array
  * calcIndex(vector): transforms vector index into flattened index
- * value(vector): get value in tensor at vector
+ * getValue(vector): get value in tensor at vector
  */
 class Tensor {
-  constructor(dimensions, fill=0){
-    this._dim = dimensions;
-    this._value = new Array(this._dim.reduce((total, val)=>{
-      return total * val;
-    }, 1));
-    this._value.fill(fill);
+  constructor(dimensions, fill=0, values){
+    if(values){
+      this._dim = this.calcDim(values);
+      this._value = _.flattenDeep(values);
+    } else {
+      this._dim = dimensions;
+      this._value = new Array(this._dim.reduce((total, val)=>{
+        return total * val;
+      }, 1));
+      this._value.fill(fill);
+    }
 
     this.calcIndexMemoized = _.memoize((...vector)=>{
       return vector.reduce((total, val, index)=>{
@@ -34,6 +41,16 @@ class Tensor {
     return this._dim.length;
   }
 
+  calcDim(values){
+    const j = [];
+    let k = values;
+    while(Array.isArray(k)){
+      j.push(k.length);
+      k = k[0];
+    }
+    return j;
+  }
+
   calcIndex(vector){
     return this.calcIndexMemoized(...vector);
   }
@@ -49,8 +66,8 @@ class Tensor {
     });
   }
 
-  value(vector){
-    assertVector(vector);
+  getValue(vector){
+    this.assertVector(vector);
     return this._value[this.calcIndex(vector)];
   }
 
