@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import {devMode} from 'utility';
 
 class Tensor {
@@ -7,6 +8,13 @@ class Tensor {
       return total * val;
     }, 1));
     this._value.fill(fill);
+
+    this.calcIndexMemoized = _.memoize((...vector)=>{
+      return vector.reduce((total, val, index)=>{
+        const factor = total[1]/this._dim[index];
+        return [total[0] + factor * val, factor];
+      }, [0, this._value.length])[0];
+    });
   }
 
   get size(){
@@ -18,10 +26,7 @@ class Tensor {
   }
 
   calcIndex(vector){
-    return vector.reduce((total, val, index)=>{
-      const factor = total[1]/this._dim[index];
-      return [total[0] + factor * val, factor];
-    }, [0, this._value.length])[0];
+    return this.calcIndexMemoized(...vector);
   }
 
   assertVector(vector){
