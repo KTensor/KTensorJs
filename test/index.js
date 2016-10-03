@@ -107,8 +107,8 @@ describe('K.n', ()=>{
       });
       it('should return the output of the run as a tensor', ()=>{
         const variable = new K.n.Variable([0, 3]);
-        const context = {};
-        context[variable] = [[1, 2, 3], [4, 5, 6]];
+        const context = new K.c.Context();
+        context.setValue(variable, [[1, 2, 3], [4, 5, 6]]);
         variable.run(null, context);
         expect(variable.output.value).to.eql([[1, 2, 3], [4, 5, 6]]);
       });

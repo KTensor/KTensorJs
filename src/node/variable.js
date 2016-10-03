@@ -41,6 +41,7 @@ class Variable {
   }
 
   run(state, context){
+    console.log(context);
     const k = new Tensor(null, null, context.getValue(this));
     this.assertTensor(k);
     this._output = k;
