@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "build-dev": "webpack --watch -d --progress --colors",
-    "test": "mocha -w lib -w tests -u bdd -c test/index.js",
+    "test": "mocha -w lib -u bdd -c test",
     "dev": "concurrently -kr 'npm run build-dev' 'npm run test'",
     "build": "webpack -p --optimize-dedupe --progress --colors"
   },
