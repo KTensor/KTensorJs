@@ -50,9 +50,17 @@ const calcIndiciesMemoized = _.memoize(
     indicies.push(0);
     let index = 0;
     while(index < finalIndex){
+      console.log('\n-------------CYCLE-------------\n');
+      console.log('indexBefore', index);
+      console.log('indiciesBefore', indicies);
+      console.log('kBefore', k);
+      console.log('');
       increment(k, 1, 1, vector);
       index = calcIndexMemoized(arrLength, dimensions, k);
       indicies.push(index);
+      console.log('index', index);
+      console.log('indicies', indicies);
+      console.log('k', k);
     }
     return indicies;
   },

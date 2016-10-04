@@ -79,7 +79,9 @@ describe('K.t', ()=>{
       });
     });
     describe('#calcIndiciesMemoized(arrLength, dimensions, vector', ()=>{
-      it('should return the indicies of the tensor that are bounded by vector');
+      it('should return the indicies of the tensor that are bounded by vector', ()=>{
+        expect(K.t.vectorModule.calcIndiciesMemoized(27, [3, 3, 3], [1, 1, 1])).to.eql([0, 1, 3, 4, 9, 10, 12, 13]);
+      });
     });
     describe('#inconsistentIncrement(vector, amount, place, cap)', ()=>{
       it('should mutate the vector by incrementing the value in the index place by amount if consisent and return true');
