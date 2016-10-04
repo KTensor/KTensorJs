@@ -26,14 +26,15 @@ const inconsistent = (vector1, vector2)=>{
   return -1;
 };
 
-// NEED TO IMPLEMENT INCREMENT
-
-const increment = (vector, amount, cap)=>{
-  vector[vector.length - 1] += 1;
-  let num = inconsistent(vector, vector2);
+const increment = (vector, amount, place, cap)=>{
+  vector[vector.length - place] += amount;
+  let num = inconsistent(vector, cap);
   while(num > -1){
-    vector[num] = vector1[num];
-    vector[num-1] += 1;
+    if(num === 0){
+      throw new RangeError(`${vector} cannot be incremented by ${amount} due to ${cap}`);
+    }
+    vector[num-1] += Math.floor(vector[num]/cap[num]);
+    vector[num] %= cap[num];
     num = inconsistent(vector, vector2);
   }
 };
@@ -47,20 +48,33 @@ const calcIndiciesMemoized = _.memoize(
       k[i] = 0;
     }
     indicies.push(0);
-    increment(k, 1, vector);
-    let index = calcIndexMemoized(arrLength, dimensions, k);
+    let index = 0;
     while(index < finalIndex){
-      indicies.push(index);
-      increment(k, vector1, vector2);
+      increment(k, 1, 1, vector);
       index = calcIndexMemoized(arrLength, dimensions, k);
+      indicies.push(index);
     }
-    indicies.push(finalIndex);
     return indicies;
   },
   (arrLength, dimensions, vector)=>{
     return JSON.stringify([arrLength, dimensions, vector]);
   }
 );
+
+const inconsistentIncrement = (vector, amount, place, cap)=>{
+  let p = vector.length - place;
+  let k = vector[p] + amount;
+  if(k > cap[p]){
+    return false;
+  } else {
+    vector[p] = k;
+    return true;
+  }
+};
+
+const vectorModule = {
+  calcIndexMemoized, inconsistent, increment, calcIndiciesMemoized, inconsistentIncrement
+};
 
 /**
  * _dim: dimension vector
@@ -95,12 +109,8 @@ class Tensor {
     return 'tensor';
   }
 
-  get size(){
+  get dimensions(){
     return this._dim;
-  }
-
-  get dimension(){
-    return this._dim.length;
   }
 
   calcDim(values){
@@ -179,5 +189,5 @@ class Tensor {
 }
 
 export {
-  Tensor
+  Tensor, vectorModule
 };

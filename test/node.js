@@ -2,7 +2,7 @@ const K = require('../lib');
 const expect = require('chai').expect;
 
 describe('K.n', ()=>{
-  describe('Node', ()=>{
+  describe('class Node', ()=>{
     describe('#type', ()=>{
       it('should return the type of the object', ()=>{
         const node = new K.n.Node();
@@ -16,7 +16,7 @@ describe('K.n', ()=>{
       });
     });
   });
-  describe('Variable', ()=>{
+  describe('class Variable', ()=>{
     describe('#type', ()=>{
       it('should return the type of the object', ()=>{
         const variable = new K.n.Variable([1]);
@@ -29,10 +29,10 @@ describe('K.n', ()=>{
         expect(variable.nodeType).to.equal('variable');
       });
     });
-    describe('#size', ()=>{
-      it('should return the dimension of the variable', ()=>{
+    describe('#dimensions', ()=>{
+      it('should return the dimensions of the variable', ()=>{
         const variable = new K.n.Variable([0, 10]);
-        expect(variable.size).to.eql([0, 10]);
+        expect(variable.dimensions).to.eql([0, 10]);
       });
     });
     describe('#output', ()=>{

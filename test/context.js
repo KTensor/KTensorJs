@@ -2,7 +2,7 @@ const K = require('../lib');
 const expect = require('chai').expect;
 
 describe('K.c', ()=>{
-  describe('Context', ()=>{
+  describe('class Context', ()=>{
     describe('#setValue(key, value)', ()=>{
       it('should set context variable to value', ()=>{
         const context = new K.c.Context();

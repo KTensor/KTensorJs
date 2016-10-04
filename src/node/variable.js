@@ -4,7 +4,7 @@ import {Tensor} from 'tensor';
 
 class Variable {
   /**
-   * dimension of 0 in this context only, means that that dimension can be of any size
+   * dimension of 0 in this context only, means that that dimension can be of any dimensions
    */
   constructor(dimensions){
     this._dim = dimensions;
@@ -19,7 +19,7 @@ class Variable {
     return 'variable'
   }
 
-  get size(){
+  get dimensions(){
     return this._dim;
   }
 
@@ -29,12 +29,12 @@ class Variable {
 
   assertTensor(tensor){
     devMode(()=>{
-      for(let i = 0; i < tensor.size.length; i++){
+      for(let i = 0; i < tensor.dimensions.length; i++){
         let k = this._dim[i];
         if(k !== 0){
-          assert(tensor.size[i] === k);
+          assert(tensor.dimensions[i] === k);
         } else {
-          assert(Number.isInteger(tensor.size[i]));
+          assert(Number.isInteger(tensor.dimensions[i]));
         }
       }
     });
