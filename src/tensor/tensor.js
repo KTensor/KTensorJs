@@ -34,8 +34,8 @@ const increment = (vector, amount, place, cap)=>{
       throw new RangeError(`${vector} cannot be incremented by ${amount} due to ${cap}`);
     }
     vector[num-1] += Math.floor(vector[num]/cap[num]);
-    vector[num] %= cap[num];
-    num = inconsistent(vector, vector2);
+    vector[num] %= cap[num] + 1;
+    num = inconsistent(vector, cap);
   }
 };
 
@@ -76,17 +76,6 @@ const vectorModule = {
   calcIndexMemoized, inconsistent, increment, calcIndiciesMemoized, inconsistentIncrement
 };
 
-/**
- * _dim: dimension vector
- * _value: flattened array of values
- * size: _dim
- * dimension: _dim.length
- * value: shaped nested array of values
- * calcDim: calculates dimension vector of multidimensional array
- * calcIndex(vector): transforms vector index into flattened index
- * getValue(vector): get value in tensor at vector
- * setValue(vector, value): set value in tensor at vector
- */
 class Tensor {
   constructor(dimensions, fill=0, values){
     if(values){
@@ -133,7 +122,7 @@ class Tensor {
       assert(vector.length === this._dim.length, `vector ${vector} must have length ${this._dim.length}`);
       assert(Number.isInteger(vector[0]), `vector ${vector} must contain integers`);
       for(let i = 0; i < vector.length; i++){
-        assert(vector[i] < this._dim[i], `vector ${vector} exceeds tensor size`);
+        assert(vector[i] < this._dim[i], `vector ${vector} exceeds tensor dimensions`);
       }
     });
   }

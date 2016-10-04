@@ -60,5 +60,30 @@ describe('K.t', ()=>{
         expect(K.t.vectorModule.calcIndexMemoized(12, [3, 2, 2], [2, 1, 1])).to.equal(11);
       });
     });
+    describe('#inconsistent(vector1, vector2)', ()=>{
+      it('should return the first index of the value of vector1 that exceeds the respective value of vector 2', ()=>{
+        expect(K.t.vectorModule.inconsistent([1, 5, 6], [3, 3, 3])).to.equal(1);
+      });
+      it('should return an index of -1 if vector1 is consistent with vector2', ()=>{
+        expect(K.t.vectorModule.inconsistent([1, 5, 6], [8, 8, 8])).to.equal(-1);
+      });
+    });
+    describe('#increment(vector, amount, place, cap)', ()=>{
+      it('should mutate vector by incrementing the value in the index place from the end of the vector by the amount while keeping consistency with the vector cap', ()=>{
+        const vector = [6, 7, 7];
+        const cap = [7, 7, 7];
+        K.t.vectorModule.increment(vector, 1, 1, cap);
+        expect(vector).to.eql([7, 0, 0]);
+        K.t.vectorModule.increment(vector, 9, 1, cap);
+        expect(vector).to.eql([7, 1, 1]);
+      });
+    });
+    describe('#calcIndiciesMemoized(arrLength, dimensions, vector', ()=>{
+      it('should return the indicies of the tensor that are bounded by vector');
+    });
+    describe('#inconsistentIncrement(vector, amount, place, cap)', ()=>{
+      it('should mutate the vector by incrementing the value in the index place by amount if consisent and return true');
+      it('should return false if the new value of the vector will be inconsistent and abort the increment');
+    });
   });
 });
