@@ -17,6 +17,15 @@ const calcIndexMemoized = _.memoize(
   }
 );
 
+const calcIndiciesMemoized = _.memoize(
+  (arrLength, dimensions, vector1, vector2)=>{
+    
+  },
+  (arrLength, dimensions, vector1, vector2)=>{
+    return JSON.stringify([arrLength, dimensions, vector1, vector2]);
+  }
+);
+
 /**
  * _dim: dimension vector
  * _value: flattened array of values
@@ -86,6 +95,16 @@ class Tensor {
   getValue(vector){
     this.assertVector(vector);
     return this._value[this.calcIndex(vector)];
+  }
+
+  getValueExplicit(index){
+    return this._value[index];
+  }
+
+  getIndicies(vector1, vector2){
+    this.assertVector(vector1);
+    this.assertVector(vector2);
+
   }
 
   setValue(vector, value){

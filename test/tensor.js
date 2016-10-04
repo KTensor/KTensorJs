@@ -45,6 +45,12 @@ describe('K.t', ()=>{
         expect(tensor.getValue([0, 2])).to.equal(3);
       });
     });
+    describe('#getValueExplicit(index)', ()=>{
+      it('should return the value of the tensor at the index', ()=>{
+        const tensor = new K.t.Tensor(null, null, [[1, 2, 3], [4, 5, 6]]);
+        expect(tensor.getValueExplicit(3)).to.equal(4);
+      });
+    });
     describe('#setValue(vector, value)', ()=>{
       it('should set the value of the tensor at the vector', ()=>{
         const tensor = new K.t.Tensor(null, null, [[1, 2, 3], [4, 5, 6]]);
