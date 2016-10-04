@@ -2,6 +2,21 @@ import _ from 'lodash';
 import assert from 'assert';
 import {devMode} from 'utility';
 
+const calcIndexMemoized = _.memoize(
+  (arrLength, dimensions, vector)=>{
+    let total = 0;
+    let factor = arrLength;
+    for(let i = 0; i < vector.length; i++){
+      factor /= dimensions[i];
+      total += factor * vector[i];
+    }
+    return total;
+  },
+  (arrLength, dimensions, vector)=>{
+    return JSON.stringify([arrLength, dimensions, vector]);
+  }
+);
+
 /**
  * _dim: dimension vector
  * _value: flattened array of values
@@ -20,18 +35,15 @@ class Tensor {
       this._value = _.flattenDeep(values);
     } else {
       this._dim = dimensions;
-      this._value = new Array(this._dim.reduce((total, val)=>{
-        return total * val;
-      }, 1));
-      this._value.fill(fill);
+      let k = 1;
+      for(let i = 0; i < this._dim.length; i++){
+        k *= this._dim[i];
+      }
+      this._value = new Array(k);
+      for(let i = 0; i < this._value.length; i++){
+        this._value[i] = fill;
+      }
     }
-
-    this.calcIndexMemoized = _.memoize((...vector)=>{
-      return vector.reduce((total, val, index)=>{
-        const factor = total[1]/this._dim[index];
-        return [total[0] + factor * val, factor];
-      }, [0, this._value.length])[0];
-    });
   }
 
   get type(){
@@ -57,7 +69,7 @@ class Tensor {
   }
 
   calcIndex(vector){
-    return this.calcIndexMemoized(...vector);
+    return calcIndexMemoized(this._value.length, this._dim, vector);
   }
 
   assertVector(vector){
@@ -65,9 +77,9 @@ class Tensor {
       assert(Array.isArray(vector), `vector ${vector} must be an array`);
       assert(vector.length === this._dim.length, `vector ${vector} must have length ${this._dim.length}`);
       assert(Number.isInteger(vector[0]), `vector ${vector} must contain integers`);
-      vector.forEach((val, index)=>{
-        assert(val < this._dim[index], `vector ${vector} exceeds tensor size`);
-      });
+      for(let i = 0; i < vector.length; i++){
+        assert(vector[i] < this._dim[i], `vector ${vector} exceeds tensor size`);
+      }
     });
   }
 
@@ -85,9 +97,11 @@ class Tensor {
     if(this._dim.length < 2){
       return this._values;
     } else {
-      return _.tail(this._dim).reduce((total, val)=>{
-        return _.chunk(total, val);
-      }, this._value);
+      let total = this._value;
+      for(let i = 1; i < this._dim.length; i++){
+        total = _.chunk(total, this._dim[i]);
+      }
+      return total;
     }
   }
 }

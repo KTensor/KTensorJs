@@ -1,4 +1,4 @@
-const dot = ()=>{
+const dot = (tensor1, tensor2)=>{
 
 };
 

@@ -29,14 +29,14 @@ class Variable {
 
   assertTensor(tensor){
     devMode(()=>{
-      tensor.size.forEach((val, index)=>{
-        let k = this._dim[index];
+      for(let i = 0; i < tensor.size.length; i++){
+        let k = this._dim[i];
         if(k !== 0){
-          assert(val === k);
+          assert(tensor.size[i] === k);
         } else {
-          assert(Number.isInteger(val));
+          assert(Number.isInteger(tensor.size[i]));
         }
-      });
+      }
     });
   }
 
