@@ -17,9 +17,51 @@ const calcIndexMemoized = _.memoize(
   }
 );
 
+const inconsistent = (vector1, vector2)=>{
+  for(let i = 0; i < vector1.length; i++){
+    if(vector1[i] > vector2[i]){
+      return i;
+    }
+  }
+  return -1;
+};
+
+const increment = (vector, vector1, vector2)=>{
+  vector[vector.length - 1] += 1;
+  let num = inconsistent(vector, vector2);
+  while(num > -1){
+    vector[num] = vector1[num];
+    vector[num-1] += 1;
+    num = inconsistent(vector, vector2);
+  }
+};
+
 const calcIndiciesMemoized = _.memoize(
   (arrLength, dimensions, vector1, vector2)=>{
-    
+    const firstIndex = calcIndexMemoized(arrLength, dimensions, vector1);
+    const finalIndex = calcIndexMemoized(arrLength, dimensions, vector2);
+    if(firstIndex === finalIndex){
+      return [firstIndex];
+    } else {
+      devMode(()=>{
+        assert(firstIndex < finalIndex);
+      });
+      const indicies = [];
+      const k = new Array(vector1.length);
+      for(let i = 0; i < k.length; i++){
+        k[i] = vector1[i];
+      }
+      indicies.push(firstIndex);
+      increment(k, vector1, vector2);
+      let index = calcIndexMemoized(arrLength, dimensions, k);
+      while(index < finalIndex){
+        indicies.push(index);
+        increment(k, vector1, vector2);
+        index = calcIndexMemoized(arrLength, dimensions, k);
+      }
+      indicies.push(finalIndex);
+      return indicies;
+    }
   },
   (arrLength, dimensions, vector1, vector2)=>{
     return JSON.stringify([arrLength, dimensions, vector1, vector2]);
@@ -104,7 +146,7 @@ class Tensor {
   getIndicies(vector1, vector2){
     this.assertVector(vector1);
     this.assertVector(vector2);
-
+    return calcIndiciesMemoized(this._value.length, this._dim, vector1, vector2);
   }
 
   setValue(vector, value){
