@@ -1,12 +1,10 @@
-const dot = (tensor1, tensor2)=>{
-
-};
+import vector from './vector';
 
 const math = {
-  dot
+  vector
 };
 
 export {
   math as default,
-  dot
+  vector
 };
