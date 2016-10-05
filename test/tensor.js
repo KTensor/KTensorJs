@@ -79,13 +79,23 @@ describe('K.t', ()=>{
       });
     });
     describe('#calcIndiciesMemoized(arrLength, dimensions, vector', ()=>{
-      it('should return the indicies of the tensor that are bounded by vector', ()=>{
+      it('should return the indicies of the tensor that are bounded by vector, inclusive', ()=>{
         expect(K.t.vectorModule.calcIndiciesMemoized(27, [3, 3, 3], [1, 1, 1])).to.eql([0, 1, 3, 4, 9, 10, 12, 13]);
       });
     });
-    describe('#inconsistentIncrement(vector, amount, place, cap)', ()=>{
-      it('should mutate the vector by incrementing the value in the index place by amount if consisent and return true');
-      it('should return false if the new value of the vector will be inconsistent and abort the increment');
+    describe('#fallibleIncrement(vector, amount, place, cap)', ()=>{
+      it('should mutate the vector by incrementing the value in the index place by amount if consisent and return true', ()=>{
+        const vector = [6, 5, 4];
+        const cap = [7, 7, 7];
+        expect(K.t.vectorModule.fallibleIncrement(vector, 2, 2, cap)).to.eql(true);
+        expect(vector).to.eql([6, 7, 4]);
+      });
+      it('should return false if the new value of the vector will be inconsistent and abort the increment', ()=>{
+        const vector = [6, 5, 4];
+        const cap = [7, 7, 7];
+        expect(K.t.vectorModule.fallibleIncrement(vector, 3, 2, cap)).to.eql(false);
+        expect(vector).to.eql([6, 5, 4]);
+      });
     });
   });
 });

@@ -33,8 +33,8 @@ const increment = (vector, amount, place, cap)=>{
     if(num === 0){
       throw new RangeError(`${vector} cannot be incremented by ${amount} due to ${cap}`);
     }
-    vector[num-1] += Math.floor(vector[num]/cap[num]);
-    vector[num] %= cap[num] + 1;
+    vector[num-1] += Math.floor(vector[num]/(cap[num]+1));
+    vector[num] %= cap[num]+1;
     num = inconsistent(vector, cap);
   }
 };
@@ -50,17 +50,9 @@ const calcIndiciesMemoized = _.memoize(
     indicies.push(0);
     let index = 0;
     while(index < finalIndex){
-      console.log('\n-------------CYCLE-------------\n');
-      console.log('indexBefore', index);
-      console.log('indiciesBefore', indicies);
-      console.log('kBefore', k);
-      console.log('');
       increment(k, 1, 1, vector);
       index = calcIndexMemoized(arrLength, dimensions, k);
       indicies.push(index);
-      console.log('index', index);
-      console.log('indicies', indicies);
-      console.log('k', k);
     }
     return indicies;
   },
@@ -69,7 +61,7 @@ const calcIndiciesMemoized = _.memoize(
   }
 );
 
-const inconsistentIncrement = (vector, amount, place, cap)=>{
+const fallibleIncrement = (vector, amount, place, cap)=>{
   let p = vector.length - place;
   let k = vector[p] + amount;
   if(k > cap[p]){
@@ -81,7 +73,7 @@ const inconsistentIncrement = (vector, amount, place, cap)=>{
 };
 
 const vectorModule = {
-  calcIndexMemoized, inconsistent, increment, calcIndiciesMemoized, inconsistentIncrement
+  calcIndexMemoized, inconsistent, increment, calcIndiciesMemoized, fallibleIncrement
 };
 
 class Tensor {
