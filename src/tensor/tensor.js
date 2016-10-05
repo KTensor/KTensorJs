@@ -72,7 +72,7 @@ const fallibleIncrement = (vector, amount, place, cap)=>{
   }
 };
 
-const vectorModule = {
+const tensorVec = {
   calcIndexMemoized, inconsistent, increment, calcIndiciesMemoized, fallibleIncrement
 };
 
@@ -156,7 +156,20 @@ class Tensor {
         assert(difference[i] > -1);
       }
     });
-    return calcIndiciesMemoized(this._value.length, this._dim, difference);
+    const firstIndex = calcIndexMemoized(this._value.length, this._dim, vector1);
+    const j = _.clone(calcIndiciesMemoized(this._value.length, this._dim, difference));
+    for(let i = 0; i < j.length; i++){
+      j[i] += firstIndex;
+    }
+    return j;
+  }
+
+  getValues(vector1, vector2){
+    const k = this.getIndicies(vector1, vector2);
+    for(let i = 0; i < k.length; i++){
+      k[i] = this._value[k[i]];
+    }
+    return k;
   }
 
   setValue(vector, value){
@@ -175,8 +188,12 @@ class Tensor {
       return total;
     }
   }
+
+  get val(){
+    return this._values;
+  }
 }
 
 export {
-  Tensor, vectorModule
+  Tensor, tensorVec
 };

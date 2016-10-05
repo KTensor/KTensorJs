@@ -14,6 +14,7 @@ new K.t.Tensor(null, null, *multidimensional_array*);
 - **type** - returns 'tensor'
 - **dimensions** - dimension vector
 - **value** - multidimensional array of values
+- **val** - direct reference to the array
 
 ### methods
 
@@ -23,3 +24,7 @@ new K.t.Tensor(null, null, *multidimensional_array*);
 - **getValueExplicit(index)**
   - index: integer
   - returns: value in flattened tensor array at index
+- **getValues(vector1, vector2)**
+  - vector1: array
+  - vector2: array
+  - returns: array of values in tensor bounded by indicies vector1 and vector2

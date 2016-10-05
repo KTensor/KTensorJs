@@ -1,11 +1,11 @@
-import {Tensor, vectorModule} from './tensor';
+import {Tensor, tensorVec} from './tensor';
 import math from './math';
 
 const t = {
-  Tensor, vectorModule, math
+  Tensor, tensorVec, math
 };
 
 export {
   t as default,
-  Tensor, vectorModule, math
+  Tensor, tensorVec, math
 };
