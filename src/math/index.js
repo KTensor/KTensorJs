@@ -1,10 +1,11 @@
 import vector from './vector';
+import matrix from './matrix';
 
 const math = {
-  vector
+  vector, matrix
 };
 
 export {
   math as default,
-  vector
+  vector, matrix
 };
