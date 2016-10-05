@@ -21,6 +21,20 @@ describe('K.t', ()=>{
         expect(tensor.value).to.eql([[[1, 2] , [3, 4]], [[5, 6], [7, 8]]]);
       });
     });
+    describe('#valref', ()=>{
+      it('should get a reference to the tensor array', ()=>{
+        const tensor = new K.t.Tensor(null, null, [[[1, 2] , [3, 4]], [[5, 6], [7, 8]]]);
+        const k = tensor.valref[3] = 42;
+        expect(tensor.getValue([0, 1, 1])).to.equal(42);
+      });
+    });
+    describe('#val', ()=>{
+      it('should get a copy of the tensor array', ()=>{
+        const tensor = new K.t.Tensor(null, null, [[[1, 2] , [3, 4]], [[5, 6], [7, 8]]]);
+        const k = tensor.val[3] = 42;
+        expect(tensor.getValue([0, 1, 1])).to.equal(4);
+      });
+    });
     describe('#calcDim(values)', ()=>{
       it('should calculate dimension vector of multidimensional array', ()=>{
         const tensor = new K.t.Tensor([1]);

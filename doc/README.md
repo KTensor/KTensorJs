@@ -14,7 +14,8 @@ new K.t.Tensor(null, null, *multidimensional_array*);
 - **type** - returns 'tensor'
 - **dimensions** - dimension vector
 - **value** - multidimensional array of values
-- **val** - direct reference to the array
+- **val** - copy of array of values
+- **valref** - direct reference to the array
 
 ### methods
 

@@ -179,7 +179,7 @@ class Tensor {
 
   get value(){
     if(this._dim.length < 2){
-      return this._values;
+      return _.clone(this._value);
     } else {
       let total = this._value;
       for(let i = 1; i < this._dim.length; i++){
@@ -189,8 +189,12 @@ class Tensor {
     }
   }
 
+  get valref(){
+    return this._value;
+  }
+
   get val(){
-    return this._values;
+    return _.clone(this._value);
   }
 }
 
