@@ -66,46 +66,46 @@ describe('K.t', ()=>{
     });
   });
 
-  describe('tensorVec', ()=>{
+  describe('tensorSubLibrary', ()=>{
     describe('#calcIndexMemoized(arrLength, dimensions, vector)', ()=>{
       it('should return the index of the vector of a tensor with the given dimensions', ()=>{
-        expect(K.t.tensorVec.calcIndexMemoized(12, [3, 2, 2], [2, 1, 1])).to.equal(11);
+        expect(K.t.tensorSubLibrary.calcIndexMemoized(12, [3, 2, 2], [2, 1, 1])).to.equal(11);
       });
     });
     describe('#inconsistent(vector1, vector2)', ()=>{
       it('should return the first index of the value of vector1 that exceeds the respective value of vector 2', ()=>{
-        expect(K.t.tensorVec.inconsistent([1, 5, 6], [3, 3, 3])).to.equal(1);
+        expect(K.t.tensorSubLibrary.inconsistent([1, 5, 6], [3, 3, 3])).to.equal(1);
       });
       it('should return an index of -1 if vector1 is consistent with vector2', ()=>{
-        expect(K.t.tensorVec.inconsistent([1, 5, 6], [8, 8, 8])).to.equal(-1);
+        expect(K.t.tensorSubLibrary.inconsistent([1, 5, 6], [8, 8, 8])).to.equal(-1);
       });
     });
     describe('#increment(vector, amount, place, cap)', ()=>{
       it('should mutate vector by incrementing the value in the index place from the end of the vector by the amount while keeping consistency with the vector cap', ()=>{
         const vector = [6, 7, 7];
         const cap = [7, 7, 7];
-        K.t.tensorVec.increment(vector, 1, 1, cap);
+        K.t.tensorSubLibrary.increment(vector, 1, 1, cap);
         expect(vector).to.eql([7, 0, 0]);
-        K.t.tensorVec.increment(vector, 9, 1, cap);
+        K.t.tensorSubLibrary.increment(vector, 9, 1, cap);
         expect(vector).to.eql([7, 1, 1]);
       });
     });
     describe('#calcIndiciesMemoized(arrLength, dimensions, vector', ()=>{
       it('should return the indicies of the tensor that are bounded by vector, inclusive', ()=>{
-        expect(K.t.tensorVec.calcIndiciesMemoized(27, [3, 3, 3], [1, 1, 1])).to.eql([0, 1, 3, 4, 9, 10, 12, 13]);
+        expect(K.t.tensorSubLibrary.calcIndiciesMemoized(27, [3, 3, 3], [1, 1, 1])).to.eql([0, 1, 3, 4, 9, 10, 12, 13]);
       });
     });
     describe('#fallibleIncrement(vector, amount, place, cap)', ()=>{
       it('should mutate the vector by incrementing the value in the index place by amount if consisent and return true', ()=>{
         const vector = [6, 5, 4];
         const cap = [7, 7, 7];
-        expect(K.t.tensorVec.fallibleIncrement(vector, 2, 2, cap)).to.eql(true);
+        expect(K.t.tensorSubLibrary.fallibleIncrement(vector, 2, 2, cap)).to.eql(true);
         expect(vector).to.eql([6, 7, 4]);
       });
       it('should return false if the new value of the vector will be inconsistent and abort the increment', ()=>{
         const vector = [6, 5, 4];
         const cap = [7, 7, 7];
-        expect(K.t.tensorVec.fallibleIncrement(vector, 3, 2, cap)).to.eql(false);
+        expect(K.t.tensorSubLibrary.fallibleIncrement(vector, 3, 2, cap)).to.eql(false);
         expect(vector).to.eql([6, 5, 4]);
       });
     });

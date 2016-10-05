@@ -72,7 +72,7 @@ const fallibleIncrement = (vector, amount, place, cap)=>{
   }
 };
 
-const tensorVec = {
+const tensorSubLibrary = {
   calcIndexMemoized, inconsistent, increment, calcIndiciesMemoized, fallibleIncrement
 };
 
@@ -195,5 +195,5 @@ class Tensor {
 }
 
 export {
-  Tensor, tensorVec
+  Tensor, tensorSubLibrary
 };
