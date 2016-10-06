@@ -3,10 +3,8 @@
 ## Overview
 
 - `Tensor` - multidimensional array with methods for getting values
-- `math` - functions for manipulating vector and matrix values
-- `operation` - higher level functions that use `math` to manipulate `Tensor` values
 - `Node` - object that can interconnect with other `Node`s and perform `operation`s on their inputs and give output as `Tensor`s
-- `function` - `Node` factories that also create links between them
+- `operation` - `Node` factories that also create links between them
 
 ## K.t.Tensor
 

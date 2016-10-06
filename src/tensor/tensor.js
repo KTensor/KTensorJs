@@ -76,6 +76,10 @@ const tensorSubLibrary = {
   calcIndexMemoized, inconsistent, increment, calcIndiciesMemoized, fallibleIncrement
 };
 
+////////////
+// Tensor //
+////////////
+
 class Tensor {
   constructor(dimensions, fill=0, values){
     if(values){

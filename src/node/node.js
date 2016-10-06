@@ -23,7 +23,8 @@ class Node {
   }
 
   run(state, context){
-
+    this._output = this._op(state, context, ...this._parameters);
+    return this._output;
   }
 }
 
