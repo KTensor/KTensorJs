@@ -1,10 +1,11 @@
 import mDot from './mDot';
+import mvAdd from './mvAdd';
 
 const op = {
-  mDot
+  mDot, mvAdd
 };
 
 export {
   op as default,
-  mDot
+  mDot, mvAdd
 }
