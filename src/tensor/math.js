@@ -1,5 +1,9 @@
 import _ from 'lodash';
 
+////////////
+// Vector //
+////////////
+
 const dot = (vector1, vector2)=>{
   let k = 0;
   for(let i = 0; i < vector1.length; i++){
@@ -23,7 +27,27 @@ const vector = {
   dot, scale
 };
 
+////////////
+// Matrix //
+////////////
+
+const mDot = (matrix1, matrix2)=>{
+
+};
+
+const matrix = {
+  mDot
+};
+
+//////////
+// Math //
+//////////
+
+const math = {
+  vector, matrix
+};
+
 export {
-  vector as default,
-  dot, scale
+  math as default,
+  vector, matrix
 };

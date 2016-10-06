@@ -104,7 +104,7 @@ describe('K.t', ()=>{
         expect(vector).to.eql([7, 1, 1]);
       });
     });
-    describe('#calcIndiciesMemoized(arrLength, dimensions, vector', ()=>{
+    describe('#calcIndiciesMemoized(arrLength, dimensions, vector)', ()=>{
       it('should return the indicies of the tensor that are bounded by vector, inclusive', ()=>{
         expect(K.t.tensorSubLibrary.calcIndiciesMemoized(27, [3, 3, 3], [1, 1, 1])).to.eql([0, 1, 3, 4, 9, 10, 12, 13]);
       });
@@ -121,6 +121,30 @@ describe('K.t', ()=>{
         const cap = [7, 7, 7];
         expect(K.t.tensorSubLibrary.fallibleIncrement(vector, 3, 2, cap)).to.eql(false);
         expect(vector).to.eql([6, 5, 4]);
+      });
+    });
+  });
+
+  describe('math', ()=>{
+    describe('vector', ()=>{
+      describe('#dot(vector1, vector2)', ()=>{
+        it('should return the dot product of both vectors', ()=>{
+          expect(K.t.math.vector.dot([2, 3, 4], [7, 6, 5])).to.equal(14+18+20);
+        });
+      });
+      describe('#scale(vector, scalar, clone=false)', ()=>{
+        it('should mutate and return the scaled vector when clone is false', ()=>{
+          const k = [0, 1, 3, 4];
+          const j = K.t.math.vector.scale(k, 2);
+          expect(k).to.eql([0, 2, 6, 8]);
+          expect(j).to.eql([0, 2, 6, 8]);
+        });
+        it('should return a new scaled vector when clone is true', ()=>{
+          const k = [0, 1, 3, 4];
+          const j = K.t.math.vector.scale(k, 2, true);
+          expect(k).to.eql([0, 1, 3, 4]);
+          expect(j).to.eql([0, 2, 6, 8]);
+        });
       });
     });
   });
