@@ -91,4 +91,48 @@ describe('K.n', ()=>{
       });
     });
   });
+
+  describe('class State', ()=>{
+    describe('#type', ()=>{
+      it('should return the type of object', ()=>{
+        const state = new K.n.State('state1', [4, 4]);
+        expect(state.type).to.equal('node');
+      });
+    });
+    describe('#nodeType', ()=>{
+      it('should return the type of node', ()=>{
+        const state = new K.n.State('state1', [4, 4]);
+        expect(state.nodeType).to.equal('state');
+      });
+    });
+    describe('#id', ()=>{
+      it('should return the id of the state', ()=>{
+        const state = new K.n.State('state1', [4, 4]);
+        expect(state.id).to.equal('state1');
+      });
+    });
+    describe('#dimensions', ()=>{
+      it('should return the dimensions of the state', ()=>{
+        const state = new K.n.State('state1', [4, 4]);
+        expect(state.dimensions).to.eql([4, 4]);
+      });
+    });
+    describe('#output', ()=>{
+      it('should return the state as a tensor', ()=>{
+        const stateContext = new K.c.Context();
+        stateContext.setValue('state1', [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15]]);
+        const state = new K.n.State('state1', [4, 4]);
+        const values = state.run(stateContext, null);
+        expect(state.output.value).to.eql(values.value);
+      });
+    });
+    describe('#run(state, context)', ()=>{
+      it('should return the state as a tensor', ()=>{
+        const stateContext = new K.c.Context();
+        stateContext.setValue('state1', [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15]]);
+        const state = new K.n.State('state1', [4, 4]);
+        expect(state.run(stateContext, null).value).to.eql([[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15]]);
+      });
+    });
+  });
 });

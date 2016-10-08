@@ -16,7 +16,7 @@ class Variable {
   }
 
   get nodeType(){
-    return 'variable'
+    return 'variable';
   }
 
   get dimensions(){
