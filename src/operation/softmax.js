@@ -24,7 +24,7 @@ const softmaxOp = (state, context, node)=>{
     }
     k[i] = row;
   }
-  return k;
+  return new Tensor(null, null, k);
 };
 
 const softmax = (node)=>{
